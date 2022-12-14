@@ -11,31 +11,69 @@ class MobileScreenLayout extends StatefulWidget {
 }
 
 class  _MobileScreenLayoutState extends State<MobileScreenLayout>{
+  int _page = 0;
+  late PageController pageController;
 
+  @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    pageController.dispose();
+  }
+
+  void navigationTapped(int page){
+    pageController.jumpToPage(page);
+  }
+
+  void onPageChanged(int page){
+    setState(() {
+      _page = page;
+    });
+  }
+ 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const Center(
-        child: Text('Welcome To Halter')
-        ),
+      body:  PageView(
+        children: [
+          Text('feed'),
+          Text('workout'),
+          Text('profile'),
+        ],
+        physics: const NeverScrollableScrollPhysics(),
+        controller: pageController,
+        onPageChanged: onPageChanged,
+      ),
         bottomNavigationBar: CupertinoTabBar(
-          items: const [
+          items:  [
             BottomNavigationBarItem(
-              icon: Icon(Icons.home),
+              icon: Icon(Icons.home,
+               color: _page == 0 ? primaryColor: secondaryColor,
+               ),
               label: '',
               backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
-              icon: Icon(Icons.sports),
+              icon: Icon(Icons.sports,
+               color: _page == 1 ? primaryColor: secondaryColor,
+               ),
               label: '',
               backgroundColor: primaryColor,
               ),
               BottomNavigationBarItem(
-              icon: Icon(Icons.account_box),
+              icon: Icon(Icons.person,
+               color: _page == 2 ? primaryColor: secondaryColor,
+               ),
               label: '',
               backgroundColor: primaryColor,
               ),
           ],
+          onTap: navigationTapped
           ),
     );
   }
