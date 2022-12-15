@@ -5,12 +5,11 @@ import 'package:halter/utils/colors.dart';
 class MobileScreenLayout extends StatefulWidget {
   const MobileScreenLayout({Key? key}) : super(key: key);
 
-
   @override
-  State<MobileScreenLayout> createState() =>  _MobileScreenLayoutState();
+  State<MobileScreenLayout> createState() => _MobileScreenLayoutState();
 }
 
-class  _MobileScreenLayoutState extends State<MobileScreenLayout>{
+class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   int _page = 0;
   late PageController pageController;
 
@@ -26,55 +25,55 @@ class  _MobileScreenLayoutState extends State<MobileScreenLayout>{
     pageController.dispose();
   }
 
-  void navigationTapped(int page){
+  void navigationTapped(int page) {
     pageController.jumpToPage(page);
   }
 
-  void onPageChanged(int page){
+  void onPageChanged(int page) {
     setState(() {
       _page = page;
     });
   }
- 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:  PageView(
+      body: PageView(
         children: [
-          Text('feed'),
-          Text('workout'),
-          Text('profile'),
+          const Text('feed'),
+          const Text('workout'),
+          const Text('profile'),
         ],
         physics: const NeverScrollableScrollPhysics(),
         controller: pageController,
         onPageChanged: onPageChanged,
       ),
-        bottomNavigationBar: CupertinoTabBar(
-          items:  [
-            BottomNavigationBarItem(
-              icon: Icon(Icons.home,
-               color: _page == 0 ? primaryColor: secondaryColor,
-               ),
-              label: '',
-              backgroundColor: primaryColor,
-              ),
-              BottomNavigationBarItem(
-              icon: Icon(Icons.sports,
-               color: _page == 1 ? primaryColor: secondaryColor,
-               ),
-              label: '',
-              backgroundColor: primaryColor,
-              ),
-              BottomNavigationBarItem(
-              icon: Icon(Icons.person,
-               color: _page == 2 ? primaryColor: secondaryColor,
-               ),
-              label: '',
-              backgroundColor: primaryColor,
-              ),
-          ],
-          onTap: navigationTapped
+      bottomNavigationBar: CupertinoTabBar(items: [
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.home,
+            color: _page == 0 ? primaryColor : secondaryColor,
           ),
+          label: '',
+          backgroundColor: primaryColor,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.sports,
+            color: _page == 1 ? primaryColor : secondaryColor,
+          ),
+          label: '',
+          backgroundColor: primaryColor,
+        ),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.person,
+            color: _page == 2 ? primaryColor : secondaryColor,
+          ),
+          label: '',
+          backgroundColor: primaryColor,
+        ),
+      ], onTap: navigationTapped),
     );
   }
 }
