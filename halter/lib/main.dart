@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:halter/responsive/mobile_screen_layout.dart';
 import 'package:halter/responsive/responsive_layout_screen.dart';
 import 'package:halter/screens/login_screen.dart';
+import 'package:halter/screens/profile_screen.dart';
 import 'package:halter/screens/signup_screen.dart';
 import 'package:halter/utils/colors.dart';
 
@@ -26,7 +27,7 @@ class MyApp extends StatelessWidget {
       // home: const ResponsiveLayout(
       // mobileScreenLayout: MobileScreenLayout(),
       //   ),
-      home: const SignUpScreen(),
+      home: const ProfileScreen(),
     );
   }
 }
