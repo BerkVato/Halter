@@ -2,6 +2,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:halter/responsive/mobile_screen_layout.dart';
 import 'package:halter/responsive/responsive_layout_screen.dart';
+import 'package:halter/screens/comment_screen.dart';
 import 'package:halter/screens/login_screen.dart';
 import 'package:halter/screens/profile_screen.dart';
 import 'package:halter/screens/signup_screen.dart';
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
       // home: const ResponsiveLayout(
       // mobileScreenLayout: MobileScreenLayout(),
       //   ),
-      home: const ProfileScreen(),
+      home: const CommentsScreen(),
     );
   }
 }
