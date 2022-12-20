@@ -10,7 +10,7 @@ import 'package:halter/utils/colors.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp;
+  await Firebase.initializeApp();
   runApp(const MyApp());
 }
 
@@ -28,7 +28,7 @@ class MyApp extends StatelessWidget {
       // home: const ResponsiveLayout(
       // mobileScreenLayout: MobileScreenLayout(),
       //   ),
-      home: const CommentsScreen(),
+      home: const SignUpScreen(),
     );
   }
 }

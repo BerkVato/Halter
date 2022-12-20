@@ -1,9 +1,13 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_svg/flutter_svg.dart';
+import 'package:halter/resources/auth_methods.dart';
 import 'package:halter/utils/colors.dart';
+import 'package:halter/utils/utils.dart';
 import 'package:halter/widgets/text_field_input.dart';
+import 'package:image_picker/image_picker.dart';
 
 class SignUpScreen extends StatefulWidget {
   const SignUpScreen({super.key});
@@ -17,6 +21,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
+  Uint8List? _image;
 
   @override
   void dispose() {
@@ -25,6 +30,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _passwordController.dispose();
     _bioController.dispose();
     _usernameController.dispose();
+  }
+
+  void selectImage() async {
+    Uint8List image = await pickImage(ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
@@ -41,6 +54,29 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 '/assets/dumbbellLogo.svg',
                 color: primaryColor,
                 height: 64,
+              ),
+              const SizedBox(height: 64),
+              Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(
+                              'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'),
+                        ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: selectImage,
+                      icon: const Icon(Icons.add_a_photo),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(height: 64),
               TextFieldInput(
@@ -77,9 +113,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 26,
               ),
               InkWell(
-                onTap: () {},
+                onTap: () async {
+                  String res = await AuthMethods().signUpUser(
+                      email: _emailController.text,
+                      password: _passwordController.text,
+                      username: _usernameController.text,
+                      file: _image!);
+                  print(res);
+                },
                 child: Container(
-                  child: const Text('Log in'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -88,6 +130,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(4))),
                     color: blueColor,
                   ),
+                  child: const Text('Sign Up'),
                 ),
               ),
               const SizedBox(
@@ -98,20 +141,20 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: const Text("Don't have an account?"),
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
                     ),
+                    child: const Text("Already have an account?"),
                   ),
                   GestureDetector(
                     onTap: () {},
                     child: Container(
-                      child: const Text(
-                        "Sign Up",
-                        style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
+                      ),
+                      child: const Text(
+                        "Log in ",
+                        style: TextStyle(fontWeight: FontWeight.bold),
                       ),
                     ),
                   ),
