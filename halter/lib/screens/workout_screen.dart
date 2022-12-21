@@ -11,12 +11,6 @@ class WorkoutScreen extends StatefulWidget {
 class _WorkoutScreenState extends State<WorkoutScreen> {
   @override
   Widget build(BuildContext context) {
-    //return Center(
-      //child: IconButton(
-        //icon: const Icon(Icons.upload),
-        //onPressed: () {},
-      //),
-    //);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
