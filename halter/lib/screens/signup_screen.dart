@@ -4,6 +4,9 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:halter/resources/auth_methods.dart';
+import 'package:halter/responsive/mobile_screen_layout.dart';
+import 'package:halter/responsive/responsive_layout_screen.dart';
+import 'package:halter/screens/login_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
 import 'package:halter/widgets/text_field_input.dart';
@@ -22,6 +25,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _bioController = TextEditingController();
   final TextEditingController _usernameController = TextEditingController();
   Uint8List? _image;
+  bool _isLoading = false;
 
   @override
   void dispose() {
@@ -38,6 +42,38 @@ class _SignUpScreenState extends State<SignUpScreen> {
     setState(() {
       _image = image;
     });
+  }
+
+  void signUpUser() async {
+    setState(() {
+      _isLoading = true;
+    });
+
+    String res = await AuthMethods().signUpUser(
+        email: _emailController.text,
+        password: _passwordController.text,
+        username: _usernameController.text,
+        bio: _bioController.text,
+        file: _image!);
+
+    setState(() {
+      _isLoading = false;
+    });
+
+    if (res != 'success') {
+// ignore: use_build_context_synchronously
+      showSnackBar(res, context);
+    } else {
+      Navigator.of(context).push(MaterialPageRoute(
+          builder: (context) => const ResponsiveLayout(
+                mobileScreenLayout: MobileScreenLayout(),
+              )));
+    }
+  }
+
+  void navigateToLogIn() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
   }
 
   @override
@@ -113,25 +149,23 @@ class _SignUpScreenState extends State<SignUpScreen> {
                 height: 26,
               ),
               InkWell(
-                onTap: () async {
-                  String res = await AuthMethods().signUpUser(
-                      email: _emailController.text,
-                      password: _passwordController.text,
-                      username: _usernameController.text,
-                      file: _image!);
-                  print(res);
-                },
-                child: Container(
-                  width: double.infinity,
-                  alignment: Alignment.center,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  decoration: const ShapeDecoration(
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(4))),
-                    color: blueColor,
-                  ),
-                  child: const Text('Sign Up'),
-                ),
+                onTap: signUpUser,
+                child: _isLoading
+                    ? const Center(
+                        child: CircularProgressIndicator(),
+                      )
+                    : Container(
+                        width: double.infinity,
+                        alignment: Alignment.center,
+                        padding: const EdgeInsets.symmetric(vertical: 12),
+                        decoration: const ShapeDecoration(
+                          shape: RoundedRectangleBorder(
+                              borderRadius:
+                                  BorderRadius.all(Radius.circular(4))),
+                          color: blueColor,
+                        ),
+                        child: const Text('Sign Up'),
+                      ),
               ),
               const SizedBox(
                 height: 13,
@@ -147,7 +181,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     child: const Text("Already have an account?"),
                   ),
                   GestureDetector(
-                    onTap: () {},
+                    onTap: navigateToLogIn,
                     child: Container(
                       padding: const EdgeInsets.symmetric(
                         vertical: 8,
