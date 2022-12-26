@@ -48,9 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              buildStatColumn(user.bio, "workouts  "),
-                              buildStatColumn(user.followers.toString(), "followers  "),
-                              buildStatColumn(user.following.toString(), "following"),
+                              buildStatColumn(user.bio, "workouts "),
+                              buildStatColumn(user.followers.toString(), " followers "),
+                              buildStatColumn(user.following.toString(), " following"),
                             ],
                           ),
                           Row(
