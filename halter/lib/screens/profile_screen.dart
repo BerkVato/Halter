@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:halter/models/user.dart';
+import 'package:halter/providers/user_provider.dart';
+import 'package:halter/models/user.dart' as model;
 
-import 'package:flutter/material.dart';
 import 'package:halter/utils/colors.dart';
+import 'package:provider/provider.dart';
 
 import '../widgets/follow_button.dart';
 
@@ -15,10 +19,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
+    // model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: Text('username'),
+        title: Text('adas'),
         centerTitle: false,
       ),
       body: ListView(

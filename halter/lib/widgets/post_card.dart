@@ -1,12 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:halter/providers/user_provider.dart';
 import 'package:halter/screens/comment_screen.dart';
 import 'package:halter/utils/colors.dart';
+import 'package:halter/models/user.dart' as model;
+import 'package:provider/provider.dart';
 
 class PostCard extends StatelessWidget {
   const PostCard({super.key});
 
   @override
   Widget build(BuildContext context) {
+    //model.User user = Provider.of<UserProvider>(context).getUser;
     return Container(
       color: mobileBackgroundColor,
       padding: const EdgeInsets.symmetric(
@@ -38,7 +42,7 @@ class PostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'username',
+                          'sdas',
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
