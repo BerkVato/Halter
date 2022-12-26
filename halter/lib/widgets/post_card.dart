@@ -10,7 +10,7 @@ class PostCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    //model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Container(
       color: mobileBackgroundColor,
       padding: const EdgeInsets.symmetric(
@@ -42,7 +42,7 @@ class PostCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Text(
-                          'sdas',
+                          user.username,
                           style: TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
@@ -142,7 +142,7 @@ class PostCard extends StatelessWidget {
                       style: const TextStyle(color: primaryColor),
                       children: [
                         TextSpan(
-                          text: 'username',
+                          text: user.username,
                           style: const TextStyle(fontWeight: FontWeight.bold),
                         ),
                         TextSpan(

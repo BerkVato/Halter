@@ -19,11 +19,11 @@ class ProfileScreen extends StatefulWidget {
 class _ProfileScreenState extends State<ProfileScreen> {
   @override
   Widget build(BuildContext context) {
-    // model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: Text('adas'),
+        title: Text(user.username),
         centerTitle: false,
       ),
       body: ListView(
@@ -48,9 +48,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              buildStatColumn(20, "workouts"),
-                              buildStatColumn(100, "followers"),
-                              buildStatColumn(20, "following"),
+                              buildStatColumn(user.bio, "workouts  "),
+                              buildStatColumn(user.followers.toString(), "followers  "),
+                              buildStatColumn(user.following.toString(), "following"),
                             ],
                           ),
                           Row(
@@ -78,7 +78,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
     );
   }
 
-  Column buildStatColumn(int num, String label) {
+  Column buildStatColumn(String num, String label) {
     return Column(
       mainAxisSize: MainAxisSize.min,
       mainAxisAlignment: MainAxisAlignment.center,
