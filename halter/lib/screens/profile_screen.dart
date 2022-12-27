@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:halter/models/user.dart';
 import 'package:halter/providers/user_provider.dart';
 import 'package:halter/models/user.dart' as model;
+import 'package:halter/screens/editprofile_screen.dart';
+import 'package:halter/screens/login_screen.dart';
 
 import 'package:halter/utils/colors.dart';
 import 'package:provider/provider.dart';
@@ -17,14 +19,42 @@ class ProfileScreen extends StatefulWidget {
 }
 
 class _ProfileScreenState extends State<ProfileScreen> {
+  void navigateToLogin() {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => const LoginScreen()));
+  }
+
+  void navigateToEditProfile() {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const EditProfileScreen()));
+  }
+
+  void logoutUser() {
+    FirebaseAuth.instance.signOut();
+    return navigateToLogin();
+  }
+
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    //model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: Text(user.username),
+        title: Text('axasdas'),
         centerTitle: false,
+        actions: [
+          TextButton(
+            onPressed: logoutUser,
+            child: const Text(
+              'Sign Out',
+              style: TextStyle(
+                color: Color.fromARGB(255, 122, 3, 3),
+                fontWeight: FontWeight.bold,
+                fontSize: 16,
+              ),
+            ),
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -48,9 +78,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              buildStatColumn(user.bio, "workouts "),
-                              buildStatColumn(user.followers.toString(), " followers "),
-                              buildStatColumn(user.following.toString(), " following"),
+                              buildStatColumn('asdaas', "workouts "),
+                              buildStatColumn('asd'.toString(), " followers "),
+                              buildStatColumn('asds', " following"),
                             ],
                           ),
                           Row(
@@ -61,7 +91,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                 backgroundColor: mobileBackgroundColor,
                                 textColor: primaryColor,
                                 borderColor: Colors.grey,
-                                function: () {},
+                                function: navigateToEditProfile,
                               ),
                             ],
                           )
