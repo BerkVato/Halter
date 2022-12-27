@@ -36,11 +36,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //model.User user = Provider.of<UserProvider>(context).getUser;
+    model.User user = Provider.of<UserProvider>(context).getUser;
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        title: Text('axasdas'),
+        title: Text(user.username),
         centerTitle: false,
         actions: [
           TextButton(
@@ -78,9 +78,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
-                              buildStatColumn('asdaas', "workouts "),
-                              buildStatColumn('asd'.toString(), " followers "),
-                              buildStatColumn('asds', " following"),
+                              buildStatColumn(user.bio, "workouts "),
+                              buildStatColumn(user.followers.toString(), " followers "),
+                              buildStatColumn(user.following.toString(), " following"),
                             ],
                           ),
                           Row(

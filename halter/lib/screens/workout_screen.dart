@@ -14,10 +14,6 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: mobileBackgroundColor,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          onPressed: () {},
-        ),
         title: const Text('Start Workout'),
         centerTitle: false,
         actions: [

@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/widgets/text_field_input.dart';
@@ -6,9 +8,6 @@ import 'package:halter/widgets/text_field_input.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
-
-  
- 
 
   @override
   Widget build(BuildContext context) {
@@ -19,47 +18,106 @@ class EditProfileScreen extends StatelessWidget {
         title: const Text('Edit Profile'),
         centerTitle: false,
       ),
-      body: SafeArea(
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 32),
-          width: double.infinity,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              const SizedBox(height: 64),
-              Stack(
-                children: [
-                  const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(
-                        'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'),
-                  ),
-                  const CircleAvatar(
-                    radius: 64,
-                    backgroundImage: NetworkImage(
-                        'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'),
-                  ),
-                  Positioned(
-                    bottom: -10,
-                    left: 80,
-                    child: IconButton(
-                      onPressed: (() {}),
-                      icon: const Icon(Icons.edit),
+      body: Container(
+        padding: EdgeInsets.only(left: 16, top: 25, right: 16),
+       child: GestureDetector(
+        onTap: (){
+          FocusScope.of(context).unfocus();
+        },
+         child: ListView(
+          children: [
+            Text(
+              "Edit Profile",
+              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+              ),
+              SizedBox(
+                height: 15,
+              ),
+              Center(
+                child: Stack(
+                  children: [
+                    Container(
+                      width: 130,
+                      height: 130,
+                      decoration: BoxDecoration(
+                        border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        boxShadow: [
+                          BoxShadow(
+                            spreadRadius: 2, blurRadius: 10,
+                            color: Colors.black.withOpacity(0.1),
+                            offset: Offset(0, 10),
+                          ),
+                        ],
+                        shape: BoxShape.circle,
+                        image: DecorationImage(
+                          fit: BoxFit.cover,
+                          image: NetworkImage(
+                            'https://images.unsplash.com/photo-1526506118085-60ce8714f8c5?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8Z3ltfGVufDB8fDB8fA%3D%3D&auto=format&fit=crop&w=500&q=60',
+                          ),
+                        ),
+                      ),
                     ),
-                  ),
-                ],
+                    Positioned(
+                      bottom: 0,
+                      right: 0,
+                      child: Container(
+                      height: 40,
+                      width: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        border: Border.all(
+                          width: 4,
+                          color: Theme.of(context).scaffoldBackgroundColor,
+                        ),
+                        color: Colors.grey,
+                      ),
+                      child: Icon(Icons.edit, color: Colors.white,
+                      ),
+                    ),
+                    ),
+                  ],
+                ),
               ),
-              const SizedBox(height: 64),
-              TextFieldInput(
-                hintText: 'username',
-                textInputType: TextInputType.text,
-                textEditingController:  ,
-                
+              SizedBox(
+                height: 35,
               ),
-            ],
+              buildTextField('Username', 'ErayGurdere7', false),
+              buildTextField('Bio', 'hey', false),
+              buildTextField('Password', '******', true),
+              SizedBox(
+                height: 35,
+              ),
+          ],
+         ),
+       ),
+      ),
+    );
+  }
+}
+
+
+  Padding buildTextField(String labelText, String placeholder, bool isPasswordTextField) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 35.0),
+      child: TextField(
+        obscureText: isPasswordTextField,
+        decoration: InputDecoration(
+          contentPadding: EdgeInsets.only(bottom: 3),
+          labelText: labelText,
+          floatingLabelBehavior: FloatingLabelBehavior.always,
+          hintText: placeholder,
+          hintStyle: TextStyle(
+            fontSize: 16,
+            fontWeight: FontWeight.bold,
+            color: Colors.white,
           ),
         ),
       ),
     );
   }
-}
+  
+
+
