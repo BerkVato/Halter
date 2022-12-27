@@ -57,7 +57,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.sports,
+            Icons.search,
             color: _page == 1 ? primaryColor : secondaryColor,
           ),
           label: '',
@@ -65,13 +65,22 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.person,
+            Icons.sports,
             color: _page == 2 ? primaryColor : secondaryColor,
           ),
           label: '',
           backgroundColor: primaryColor,
         ),
-      ], onTap: navigationTapped),
+        BottomNavigationBarItem(
+          icon: Icon(
+            Icons.person,
+            color: _page == 3 ? primaryColor : secondaryColor,
+          ),
+          label: '',
+          backgroundColor: primaryColor,
+        ),
+      ], onTap: navigationTapped
+      ),
     );
   }
 }
