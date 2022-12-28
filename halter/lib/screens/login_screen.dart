@@ -3,6 +3,7 @@ import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:halter/resources/auth_methods.dart';
+import 'package:halter/screens/resetpassword_screen.dart';
 import 'package:halter/screens/signup_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
@@ -55,6 +56,11 @@ class _LoginScreenState extends State<LoginScreen> {
         .push(MaterialPageRoute(builder: (context) => const SignUpScreen()));
   }
 
+  void navigateToResetPassword() {
+    Navigator.of(context).push(
+        MaterialPageRoute(builder: (context) => const ResetPasswordScreen()));
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -65,11 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              SvgPicture.asset(
-                '/assets/dumbbellLogo.svg',
-                color: primaryColor,
-                height: 64,
-              ),
               const SizedBox(height: 64),
               TextFieldInput(
                 hintText: 'Enter your email',
@@ -84,6 +85,24 @@ class _LoginScreenState extends State<LoginScreen> {
                 textInputType: TextInputType.text,
                 textEditingController: _passwordController,
                 isPass: true,
+              ),
+              const SizedBox(
+                height: 12,
+              ),
+              Row(
+                // ignore: prefer_const_literals_to_create_immutables
+                children: [
+                  GestureDetector(
+                    onTap: () {
+                      navigateToResetPassword();
+                    },
+                    child: const Text(
+                      "Forgot Password?",
+                      style: TextStyle(
+                          fontWeight: FontWeight.bold, color: blueColor),
+                    ),
+                  ),
+                ],
               ),
               const SizedBox(
                 height: 26,

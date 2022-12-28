@@ -1,16 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:halter/screens/resetpassword_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/widgets/text_field_input.dart';
-
-
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
+    void navigateToResetPassword() {
+      Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => const ResetPasswordScreen()));
+    }
+
     return Scaffold(
       appBar: AppBar(
         leading: const BackButton(),
@@ -20,15 +24,15 @@ class EditProfileScreen extends StatelessWidget {
       ),
       body: Container(
         padding: EdgeInsets.only(left: 16, top: 25, right: 16),
-       child: GestureDetector(
-        onTap: (){
-          FocusScope.of(context).unfocus();
-        },
-         child: ListView(
-          children: [
-            Text(
-              "Edit Profile",
-              style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
+        child: GestureDetector(
+          onTap: () {
+            FocusScope.of(context).unfocus();
+          },
+          child: ListView(
+            children: [
+              Text(
+                "Edit Profile",
+                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
               ),
               SizedBox(
                 height: 15,
@@ -46,7 +50,8 @@ class EditProfileScreen extends StatelessWidget {
                         ),
                         boxShadow: [
                           BoxShadow(
-                            spreadRadius: 2, blurRadius: 10,
+                            spreadRadius: 2,
+                            blurRadius: 10,
                             color: Colors.black.withOpacity(0.1),
                             offset: Offset(0, 10),
                           ),
@@ -64,19 +69,21 @@ class EditProfileScreen extends StatelessWidget {
                       bottom: 0,
                       right: 0,
                       child: Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        border: Border.all(
-                          width: 4,
-                          color: Theme.of(context).scaffoldBackgroundColor,
+                        height: 40,
+                        width: 40,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          border: Border.all(
+                            width: 4,
+                            color: Theme.of(context).scaffoldBackgroundColor,
+                          ),
+                          color: Colors.grey,
                         ),
-                        color: Colors.grey,
+                        child: Icon(
+                          Icons.edit,
+                          color: Colors.white,
+                        ),
                       ),
-                      child: Icon(Icons.edit, color: Colors.white,
-                      ),
-                    ),
                     ),
                   ],
                 ),
@@ -86,38 +93,44 @@ class EditProfileScreen extends StatelessWidget {
               ),
               buildTextField('Username', 'ErayGurdere7', false),
               buildTextField('Bio', 'hey', false),
-              buildTextField('Password', '******', true),
+              SizedBox(
+                height: 20,
+              ),
+              MaterialButton(
+                onPressed: () {
+                  navigateToResetPassword();
+                },
+                child: Text('Change Password'),
+                color: blueColor,
+              ),
               SizedBox(
                 height: 35,
               ),
-          ],
-         ),
-       ),
-      ),
-    );
-  }
-}
-
-
-  Padding buildTextField(String labelText, String placeholder, bool isPasswordTextField) {
-    return Padding(
-      padding: const EdgeInsets.only(bottom: 35.0),
-      child: TextField(
-        obscureText: isPasswordTextField,
-        decoration: InputDecoration(
-          contentPadding: EdgeInsets.only(bottom: 3),
-          labelText: labelText,
-          floatingLabelBehavior: FloatingLabelBehavior.always,
-          hintText: placeholder,
-          hintStyle: TextStyle(
-            fontSize: 16,
-            fontWeight: FontWeight.bold,
-            color: Colors.white,
+            ],
           ),
         ),
       ),
     );
   }
-  
+}
 
-
+Padding buildTextField(
+    String labelText, String placeholder, bool isPasswordTextField) {
+  return Padding(
+    padding: const EdgeInsets.only(bottom: 35.0),
+    child: TextField(
+      obscureText: isPasswordTextField,
+      decoration: InputDecoration(
+        contentPadding: EdgeInsets.only(bottom: 3),
+        labelText: labelText,
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        hintText: placeholder,
+        hintStyle: TextStyle(
+          fontSize: 16,
+          fontWeight: FontWeight.bold,
+          color: Colors.white,
+        ),
+      ),
+    ),
+  );
+}
