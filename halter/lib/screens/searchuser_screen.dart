@@ -82,6 +82,6 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 },
               )
-            : Text('Error, no user!'));
+            : Text('Enter a user to search!'));
   }
 }

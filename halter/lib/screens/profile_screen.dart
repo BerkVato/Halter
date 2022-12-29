@@ -86,7 +86,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    model.User user = Provider.of<UserProvider>(context).getUser;
+    //model.User user = Provider.of<UserProvider>(context).getUser;
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -94,7 +94,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : Scaffold(
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
-              title: Text(userData['username']),
+              title: Text(
+                userData['username']
+                ),
               centerTitle: false,
               actions: [
                 TextButton(
@@ -120,7 +122,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         children: [
                           CircleAvatar(
                             backgroundColor: Colors.grey,
-                            backgroundImage: NetworkImage('photoUrl'),
+                            backgroundImage: NetworkImage(
+                              userData['photoUrl'],
+                            ),
                             radius: 40,
                           ),
                           Expanded(
