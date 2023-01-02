@@ -31,12 +31,13 @@ class _SearchScreenState extends State<SearchScreen> {
           title: TextFormField(
             controller: searchController,
             decoration: const InputDecoration(
-              labelText: 'Search for a User',
+              labelText: 'Search for a User...',
             ),
             onFieldSubmitted: (String _) {
               setState(() {
                 isShowUsers = true;
               });
+              print(_);
             },
           ),
         ),
@@ -51,7 +52,8 @@ class _SearchScreenState extends State<SearchScreen> {
                     .get(),
                 builder: (context, snapshot) {
                   if (!snapshot.hasData) {
-                    return const Center(child: CircularProgressIndicator());
+                    return const Center(child: CircularProgressIndicator()
+                    );
                   }
 
                   return ListView.builder(
@@ -61,17 +63,16 @@ class _SearchScreenState extends State<SearchScreen> {
                         onTap: () => Navigator.of(context).push(
                           MaterialPageRoute(
                             builder: (context) => ProfileScreen(
-                                uid: (snapshot.data! as dynamic).docs[index]
-                                    ['uid']
+                                uid: (snapshot.data! as dynamic).docs[index]['uid'],
                                     ),
                           ),
                         ),
                         child: ListTile(
                           leading: CircleAvatar(
                             backgroundImage: NetworkImage(
-                              (snapshot.data! as dynamic).docs[index]
-                                  ['photoUrl'],
+                              (snapshot.data! as dynamic).docs[index]['photoUrl'],
                             ),
+                            radius: 16,
                           ),
                           title: Text(
                             (snapshot.data! as dynamic).docs[index]['username'],
@@ -82,6 +83,7 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 },
               )
-            : Text('Enter a user to search!'));
+            : const Text('Enter a user to search!')
+            );
   }
 }

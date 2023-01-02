@@ -65,7 +65,7 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
         ),
         BottomNavigationBarItem(
           icon: Icon(
-            Icons.sports,
+            Icons.fitness_center_outlined,
             color: _page == 2 ? primaryColor : secondaryColor,
           ),
           label: '',
