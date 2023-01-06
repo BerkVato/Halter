@@ -1,4 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:halter/models/exercise.dart';
+import 'package:halter/models/workout.dart';
 
 class User {
   final String email;
@@ -8,6 +10,7 @@ class User {
   final String bio;
   final List followers;
   final List following;
+  final List<Workout>? workouts;
 
   const User(
       {required this.username,
@@ -16,7 +19,8 @@ class User {
       required this.email,
       required this.bio,
       required this.followers,
-      required this.following});
+      required this.following,
+      required this.workouts});
 
   Map<String, dynamic> toJson() => {
         "username": username,
@@ -26,6 +30,7 @@ class User {
         "bio": bio,
         "followers": followers,
         "following": following,
+        "workouts" : workouts
       };
 
   static User fromSnap(DocumentSnapshot snap) {
@@ -39,6 +44,7 @@ class User {
       bio: snapshot["bio"],
       followers: snapshot["followers"],
       following: snapshot["following"],
+      workouts: snapshot["workouts"],
     );
   }
 }

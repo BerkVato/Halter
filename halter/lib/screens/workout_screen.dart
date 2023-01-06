@@ -17,21 +17,20 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         backgroundColor: mobileBackgroundColor,
         title: const Text('Start Workout'),
         centerTitle: false,
-        actions: [
-          TextButton(onPressed: () => Navigator.of(context).push(
-                  MaterialPageRoute(
-                    builder: (context) => const StartWorkoutScreen(),
-                  ),
-                ),
-          child: const Text('Start an Empty Workout', style: TextStyle(
-            color: Colors.blueAccent,
-            fontWeight: FontWeight.bold,
-            fontSize: 16,
-          ),
-          ),
-          ),
-        ],
+        
       ),
+      body: Center(
+        child: MaterialButton(
+              onPressed: () 
+                 => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => const StartWorkoutScreen(),
+                    ),
+                  ),
+              child: Text('Start an Empty Workout'),
+              color: blueColor,
+            ),
+      )
     );
   }
 }
