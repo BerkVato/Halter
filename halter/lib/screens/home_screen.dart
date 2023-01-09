@@ -18,7 +18,7 @@ class HomeScreen extends StatelessWidget {
         height: 32,
         ),
       ),
-      body: const PostCard(),
+      //body: const PostCard(),
     );
   }
 }
