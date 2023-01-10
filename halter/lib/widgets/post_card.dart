@@ -5,9 +5,18 @@ import 'package:halter/utils/colors.dart';
 import 'package:halter/models/user.dart' as model;
 import 'package:provider/provider.dart';
 
-class PostCard extends StatelessWidget {
-  const PostCard({super.key});
+class PostCard extends StatefulWidget {
+  final snap;
+  const PostCard({
+    Key? key,
+    required this.snap,
+  }) : super(key: key);
 
+  @override
+  State<PostCard> createState() => _PostCardState();
+}
+
+class _PostCardState extends State<PostCard> {
   @override
   Widget build(BuildContext context) {
     model.User user = Provider.of<UserProvider>(context).getUser;
@@ -105,7 +114,9 @@ class PostCard extends StatelessWidget {
               IconButton(
                 onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => CommentsScreen(),
+                    builder: (context) => CommentsScreen(
+                      snap: widget.snap,
+                    ),
                   ),
                 ),
                 icon: const Icon(
