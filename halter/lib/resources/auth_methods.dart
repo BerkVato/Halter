@@ -48,7 +48,6 @@ class AuthMethods {
           followers: [],
           following: [],
           photoUrl: photoUrl,
-          workouts: [],
         );
 
         await _firestore

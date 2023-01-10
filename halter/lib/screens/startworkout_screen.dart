@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:halter/screens/exercise_screen.dart';
 
 import '../utils/colors.dart';
 
@@ -14,31 +13,15 @@ class _StartWorkoutScreenState extends State<StartWorkoutScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body:
-          SafeArea(
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 32),
-              width: double.infinity,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  const SizedBox(height: 64,),
-                   MaterialButton (onPressed: () => Navigator.of(context).push(
-                      MaterialPageRoute(
-                        builder: (context) => const ExerciseScreen(),
-                      ),
-                    ),
-                child: Text('Add Exercise'),
-                color: blueColor,
-                height: 50,
-                minWidth: 300,
-                
+      appBar: AppBar(
+         backgroundColor: mobileBackgroundColor,
+        title: const Text('Start an Empty Workout'),
+        centerTitle: false,
       ),
-                ],
-              ),
-            ),
-          )
-       
+      body:
+      Container(
+        
+      ),
     );
   }
 }
