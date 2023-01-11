@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:halter/screens/startworkout_screen.dart';
+import 'package:halter/screens/addworkout_screen.dart';
 import 'package:halter/utils/colors.dart';
 
 class WorkoutScreen extends StatefulWidget {
@@ -20,7 +20,7 @@ class _WorkoutScreenState extends State<WorkoutScreen> {
         actions: [
           TextButton(onPressed: () => Navigator.of(context).push(
                   MaterialPageRoute(
-                    builder: (context) => const StartWorkoutScreen(),
+                    builder: (context) => const AddWorkoutScreen(),
                   ),
                 ),
           child: const Text('Start an Empty Workout', style: TextStyle(
