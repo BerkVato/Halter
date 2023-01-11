@@ -62,7 +62,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .get();
       //get post length
       var postSnap = await FirebaseFirestore.instance
-          .collection('posts')
+          .collection('workouts')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
       postLen = postSnap.docs.length;
@@ -226,7 +226,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 const Divider(),
                 FutureBuilder(
                   future: FirebaseFirestore.instance
-                      .collection('posts')
+                      .collection('workouts')
                       .where('uid', isEqualTo: widget.uid)
                       .get(),
                   builder: (context, snapshot) {
