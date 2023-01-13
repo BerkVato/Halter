@@ -37,30 +37,37 @@ class FireStoreMethods {
   }
 
   //post comment function
-  Future<void> postComment(String postId, String text, String uid,
+   Future<String> postComment(String postId, String text, String uid,
       String name, String profilePic) async {
-        try{
-          if(text.isNotEmpty){
-            String commentId = const Uuid().v1();
-           await _firestore.collection('workouts').doc(postId).collection('comments').doc(commentId).set({
-            'profilePic': profilePic,
-            'name': name,
-            'uid': uid,
-            'text': text,
-            'commentId': commentId,
-            'datePublished': DateTime.now(),
-           });
-          } else {
-            print('Text is empty!');
-          }
-        }catch(e){
-          print(
-            e.toString(),
-          );
-        }
+    String res = "Some error occurred";
+    try {
+      if (text.isNotEmpty) {
+        // if the likes list contains the user uid, we need to remove it
+        String commentId = const Uuid().v1();
+        _firestore
+            .collection('workouts')
+            .doc(postId)
+            .collection('comments')
+            .doc(commentId)
+            .set({
+          'profilePic': profilePic,
+          'name': name,
+          'uid': uid,
+          'text': text,
+          'commentId': commentId,
+          'datePublished': DateTime.now(),
+        });
+        res = 'success';
+      } else {
+        res = "Please enter text";
       }
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
 
-      Future<String> uploadPost(String description, Uint8List file, String uid,
+      Future<String> uploadPost(String workoutDescription, Uint8List file, String uid,
       String username, String profImage) async {
     // asking uid here because we dont want to make extra calls to firebase auth when we can just get from our state management
     String res = "Some error occurred";
@@ -69,7 +76,7 @@ class FireStoreMethods {
           await StorageMethods().uploadImageToStorage('workouts', file, true);
       String postId = const Uuid().v1(); // creates unique id based on time
       Workout post = Workout(
-        workoutDescription: description,
+        workoutDescription: workoutDescription,
         uid: uid,
         username: username,
         likes: [],
@@ -85,4 +92,36 @@ class FireStoreMethods {
     }
     return res;
   }
+  Future<String> likePost(String postId, String uid, List likes) async {
+    String res = "Some error occurred";
+    try {
+      if (likes.contains(uid)) {
+        // if the likes list contains the user uid, we need to remove it
+        _firestore.collection('workouts').doc(postId).update({
+          'likes': FieldValue.arrayRemove([uid])
+        });
+      } else {
+        // else we need to add uid to the likes array
+        _firestore.collection('workouts').doc(postId).update({
+          'likes': FieldValue.arrayUnion([uid])
+        });
+      }
+      res = 'success';
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
+  Future<String> deletePost(String postId) async {
+    String res = "Some error occurred";
+    try {
+      await _firestore.collection('workouts').doc(postId).delete();
+      res = 'success';
+    } catch (err) {
+      res = err.toString();
+    }
+    return res;
+  }
+
 }

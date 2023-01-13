@@ -18,7 +18,7 @@ class AddWorkoutScreen extends StatefulWidget {
 class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   Uint8List? _file;
   bool isLoading = false;
-  final TextEditingController _descriptionController = TextEditingController();
+  final TextEditingController _workoutDescriptionController = TextEditingController();
 
   _selectImage(BuildContext parentContext) async {
     return showDialog(
@@ -68,7 +68,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
     try {
       // upload to storage and db
       String res = await FireStoreMethods().uploadPost(
-        _descriptionController.text,
+        _workoutDescriptionController.text,
         _file!,
         uid,
         username,
@@ -106,7 +106,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   @override
   void dispose() {
     super.dispose();
-    _descriptionController.dispose();
+    _workoutDescriptionController.dispose();
   }
 
   @override
@@ -169,7 +169,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                     SizedBox(
                       width: MediaQuery.of(context).size.width * 0.3,
                       child: TextField(
-                        controller: _descriptionController,
+                        controller: _workoutDescriptionController,
                         decoration: const InputDecoration(
                             hintText: "Enter Your Workout",
                             border: InputBorder.none),

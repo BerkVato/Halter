@@ -8,6 +8,8 @@ import 'package:halter/widgets/text_field_input.dart';
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
 
+  
+
   @override
   Widget build(BuildContext context) {
     void navigateToResetPassword() {

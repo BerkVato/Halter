@@ -25,7 +25,7 @@ class Workout {
     var snapshot = snap.data() as Map<String, dynamic>;
 
     return Workout(
-      workoutDescription: snapshot["description"],
+      workoutDescription: snapshot["workoutDescription"],
       uid: snapshot["uid"],
       likes: snapshot["likes"],
       postId: snapshot["postId"],
