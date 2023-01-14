@@ -17,13 +17,16 @@ class _FeedScreenState extends State<FeedScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      backgroundColor:
-           mobileBackgroundColor,
+      backgroundColor:  mobileBackgroundColor,
       appBar: 
-        
            AppBar(
               backgroundColor: mobileBackgroundColor,
-              centerTitle: false,
+              centerTitle: true,
+              title: SvgPicture.asset(
+                'assets/dumbbellLogo.svg',
+                color: primaryColor,
+                height: 32,
+              ),
             ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('workouts').snapshots(),
