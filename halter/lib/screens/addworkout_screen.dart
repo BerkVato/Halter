@@ -25,7 +25,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
       context: parentContext,
       builder: (BuildContext context) {
         return SimpleDialog(
-          title: const Text('Create a Post'),
+          title: const Text('Create a Workout Post'),
           children: <Widget>[
             SimpleDialogOption(
                 padding: const EdgeInsets.all(20),
@@ -49,7 +49,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 }),
             SimpleDialogOption(
               padding: const EdgeInsets.all(20),
-              child: const Text("Cancel"),
+              child: const Text("Cancel Workout"),
               onPressed: () {
                 Navigator.pop(context);
               },
@@ -130,7 +130,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 onPressed: clearImage,
               ),
               title: const Text(
-                'Post to',
+                'Post Your Workout',
               ),
               centerTitle: false,
               actions: <Widget>[
