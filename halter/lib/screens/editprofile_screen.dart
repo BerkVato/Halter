@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:halter/screens/resetpassword_screen.dart';
 import 'package:halter/utils/colors.dart';
@@ -7,6 +8,7 @@ import 'package:halter/widgets/text_field_input.dart';
 
 class EditProfileScreen extends StatelessWidget {
   const EditProfileScreen({super.key});
+  
 
   
 
@@ -32,10 +34,6 @@ class EditProfileScreen extends StatelessWidget {
           },
           child: ListView(
             children: [
-              Text(
-                "Edit Profile",
-                style: TextStyle(fontSize: 25, fontWeight: FontWeight.w500),
-              ),
               SizedBox(
                 height: 15,
               ),
@@ -93,8 +91,8 @@ class EditProfileScreen extends StatelessWidget {
               SizedBox(
                 height: 35,
               ),
-              buildTextField('Username', 'ErayGurdere7', false),
-              buildTextField('Bio', 'hey', false),
+              buildTextField('Username', 'addzxdzx', false),
+              buildTextField('Bio','asdsads' , false),
               SizedBox(
                 height: 20,
               ),
@@ -107,6 +105,13 @@ class EditProfileScreen extends StatelessWidget {
               ),
               SizedBox(
                 height: 35,
+              ),
+              MaterialButton(
+                onPressed: () {
+            
+                },
+                child: Text('Confirm Changes'),
+                color: blueColor,
               ),
             ],
           ),
