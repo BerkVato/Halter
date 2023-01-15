@@ -117,7 +117,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
         ? Center(
             child: IconButton(
               icon: const Icon(
-                Icons.upload,
+                Icons.fitness_center_outlined,
               ),
               onPressed: () => _selectImage(context),
             ),
