@@ -124,4 +124,23 @@ class FireStoreMethods {
     return res;
   }
 
+  Future<String> updateProfile(String uid, String usernameController, String bioController ) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
+    String res = 'Some error occured';
+    try {
+      if (usernameController.isNotEmpty && bioController.isNotEmpty ) {
+        docUser.update({
+          'username' : usernameController,
+          'bio' : bioController
+        });
+        return 'success';
+      }
+    } catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
+
+
+
 }

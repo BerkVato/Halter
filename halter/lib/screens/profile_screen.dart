@@ -37,7 +37,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void navigateToEditProfile() {
     Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) => const EditProfileScreen()));
+        MaterialPageRoute(builder: (context) =>  EditProfileScreen()));
   }
 
   void logoutUser() {

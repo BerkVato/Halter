@@ -1,19 +1,38 @@
 import 'dart:ui';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:halter/models/user.dart' as model;
+import 'package:halter/providers/user_provider.dart';
 import 'package:halter/screens/resetpassword_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/widgets/text_field_input.dart';
+import 'package:provider/provider.dart';
 
 class EditProfileScreen extends StatelessWidget {
-  const EditProfileScreen({super.key});
-  
+   EditProfileScreen({super.key});
+  final TextEditingController _bioController = TextEditingController();
+ 
 
-  
+  Future<String> updateProfile(String uid, String bioController ) async {
+    final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
+    String res = 'Some error occured';
+    try {
+      if ( bioController.isNotEmpty ) {
+        docUser.update({
+          'bio' : bioController
+        });
+        return 'success';
+      }
+    } catch(err){
+      res = err.toString();
+    }
+    return res;
+  }
 
   @override
   Widget build(BuildContext context) {
+    final model.User user = Provider.of<UserProvider>(context).getUser;
     void navigateToResetPassword() {
       Navigator.of(context).push(
           MaterialPageRoute(builder: (context) => const ResetPasswordScreen()));
@@ -91,8 +110,14 @@ class EditProfileScreen extends StatelessWidget {
               SizedBox(
                 height: 35,
               ),
-              buildTextField('Username', 'addzxdzx', false),
-              buildTextField('Bio','asdsads' , false),
+              const SizedBox(
+                height: 26,
+              ),
+              TextFieldInput(
+                hintText: 'Enter your new bio',
+                textInputType: TextInputType.text,
+                textEditingController: _bioController,
+              ),
               SizedBox(
                 height: 20,
               ),
@@ -107,7 +132,7 @@ class EditProfileScreen extends StatelessWidget {
                 height: 35,
               ),
               MaterialButton(
-                onPressed: () {
+                onPressed: () { updateProfile(user.uid, _bioController.text);
             
                 },
                 child: Text('Confirm Changes'),
