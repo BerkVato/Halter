@@ -49,7 +49,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
                 }),
             SimpleDialogOption(
               padding: const EdgeInsets.all(20),
-              child: const Text("Cancel Workout"),
+              child: const Text("Discard Workout"),
               onPressed: () {
                 Navigator.pop(context);
               },
