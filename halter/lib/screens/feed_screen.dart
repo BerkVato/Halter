@@ -27,7 +27,18 @@ class _FeedScreenState extends State<FeedScreen> {
                 color: primaryColor,
                 height: 32,
               ),
+              actions: <Widget>[
+          Padding(
+            padding: const EdgeInsets.only(right: 12.0),
+            child: IconButton(
+              icon: const Icon(Icons.send),
+              onPressed: () {
+            
+              },
             ),
+          )
+        ],
+      ),
       body: StreamBuilder(
         stream: FirebaseFirestore.instance.collection('workouts').snapshots(),
         builder: (context,

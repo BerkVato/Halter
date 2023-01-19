@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -36,13 +38,14 @@ class _ProfileScreenState extends State<ProfileScreen> {
   }
 
   void navigateToEditProfile() {
-    Navigator.of(context).push(
-        MaterialPageRoute(builder: (context) =>  EditProfileScreen()));
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => EditProfileScreen()));
   }
 
   void logoutUser() {
     FirebaseAuth.instance.signOut();
-    return navigateToLogin();
+    navigateToLogin();
+    //exit(0);
   }
 
   @override
@@ -86,7 +89,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    //model.User user = Provider.of<UserProvider>(context).getUser;
     return isLoading
         ? const Center(
             child: CircularProgressIndicator(),
@@ -94,22 +96,18 @@ class _ProfileScreenState extends State<ProfileScreen> {
         : Scaffold(
             appBar: AppBar(
               backgroundColor: mobileBackgroundColor,
-              title: Text(
-                userData['username']
-                ),
+              title: Text(userData['username']),
               centerTitle: false,
-              actions: [
-                TextButton(
-                  onPressed: logoutUser,
-                  child: const Text(
-                    'Sign Out',
-                    style: TextStyle(
-                      color: Color.fromARGB(255, 122, 3, 3),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                    ),
+              actions: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(right: 12.0),
+                  child: IconButton(
+                    icon: const Icon(Icons.settings),
+                    onPressed: () {
+                      navigateToEditProfile();
+                    },
                   ),
-                ),
+                )
               ],
             ),
             body: ListView(
@@ -148,13 +146,12 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                     FirebaseAuth.instance.currentUser!.uid ==
                                             widget.uid
                                         ? FollowButton(
-                                            text: 'Edit Profile',
+                                            text: 'Sign Out',
                                             backgroundColor:
                                                 mobileBackgroundColor,
                                             textColor: primaryColor,
                                             borderColor: Colors.grey,
-                                            function: navigateToEditProfile,
-                                          )
+                                            function: logoutUser)
                                         : isFollowing
                                             ? FollowButton(
                                                 text: 'Unfollow',
@@ -170,7 +167,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   );
                                                   setState(() {
                                                     isFollowing = false;
-                                                    followers --;
+                                                    followers--;
                                                   });
                                                 },
                                               )
@@ -188,7 +185,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                   );
                                                   setState(() {
                                                     isFollowing = true;
-                                                    followers ++;
+                                                    followers++;
                                                   });
                                                 },
                                               )
@@ -206,7 +203,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                         ),
                         child: Text(
                           userData['username'],
-                          style: TextStyle(
+                          style: const TextStyle(
                             fontWeight: FontWeight.bold,
                           ),
                         ),
@@ -248,13 +245,11 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           DocumentSnapshot snap =
                               (snapshot.data! as dynamic).docs[index];
 
-                          return Container(
-                            child: Image(
-                              image: NetworkImage(
-                                snap['postUrl'],
-                              ),
-                              fit: BoxFit.cover,
+                          return Image(
+                            image: NetworkImage(
+                              snap['postUrl'],
                             ),
+                            fit: BoxFit.cover,
                           );
                         });
                   },

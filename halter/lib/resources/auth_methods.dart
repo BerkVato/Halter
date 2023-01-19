@@ -1,3 +1,4 @@
+import 'dart:io';
 import 'dart:math';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -95,8 +96,8 @@ class AuthMethods {
     }
     return res;
   }
-  Future<void> signOut() async {
-    await _auth.signOut();
+  void signOut()  {
+   _auth.signOut();
   }
 
   
