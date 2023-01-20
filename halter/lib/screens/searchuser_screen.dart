@@ -5,9 +5,10 @@ import 'package:halter/utils/colors.dart';
 import 'package:provider/provider.dart';
 
 import '../providers/user_provider.dart';
+import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 
 class SearchScreen extends StatefulWidget {
-  const SearchScreen({super.key});
+  const SearchScreen({Key? key}) : super(key: key);
 
   @override
   State<SearchScreen> createState() => _SearchScreenState();
@@ -83,7 +84,33 @@ class _SearchScreenState extends State<SearchScreen> {
                   );
                 },
               )
-            : const Text('Enter a user to search!')
+            : FutureBuilder(
+              future: FirebaseFirestore.instance
+                  .collection('workouts')
+                  .orderBy('datePublished')
+                  .get(),
+              builder: (context, snapshot) {
+                if (!snapshot.hasData) {
+                  return const Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+                return StaggeredGridView.countBuilder(
+                  crossAxisCount: 3,
+                  itemCount: (snapshot.data! as dynamic).docs.length,
+                  itemBuilder: (context, index) => Image.network(
+                    (snapshot.data! as dynamic).docs[index]['postUrl'],
+                    fit: BoxFit.cover,
+                  ),
+                  staggeredTileBuilder: (index) => StaggeredTile.count(
+                    (index % 7 == 0) ? 2 : 1,
+                    (index % 7 == 0) ? 2 : 1,
+                  ), 
+                  mainAxisSpacing: 8.0,
+                  crossAxisSpacing: 8.0,
+                );
+              },
+            ),
             );
   }
 }
