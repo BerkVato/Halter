@@ -9,6 +9,7 @@ import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
 import 'package:halter/widgets/like_animation.dart';
 import 'package:provider/provider.dart';
+import 'package:intl/intl.dart';
 
 class PostCard extends StatefulWidget {
   final snap;
@@ -64,9 +65,7 @@ class _PostCardState extends State<PostCard> {
     final User user = Provider.of<UserProvider>(context).getUser;
 
     return Container(
-      // boundary needed for web
-      decoration: const BoxDecoration(
-        
+      decoration: const BoxDecoration(  
         color: mobileBackgroundColor,
       ),
       padding: const EdgeInsets.symmetric(
@@ -272,9 +271,36 @@ class _PostCardState extends State<PostCard> {
                     ),
                   ),
                 ),
+                InkWell(
+                  child: Container(
+                    child: Text(
+                      'View all $commentLen workout comments',
+                      style: const TextStyle(
+                        fontSize: 16,
+                        color: secondaryColor,
+                      ),
+                    ),
+                    padding: const EdgeInsets.symmetric(vertical: 4),
+                  ),
+                  onTap: () => Navigator.of(context).push(
+                    MaterialPageRoute(
+                      builder: (context) => CommentsScreen(
+                        postId: widget.snap['postId'].toString(),
+                      ),
+                      ),
+                  ),
+                ),
                 //DATE VAR
-
-                
+                Container(
+                  child: Text(
+                    DateFormat.yMMMd()
+                        .format(widget.snap['datePublished'].toDate()),
+                    style: const TextStyle(
+                      color: secondaryColor,
+                    ),
+                  ),
+                  padding: const EdgeInsets.symmetric(vertical: 4),
+                ),
               ],
             ),
           )
