@@ -70,7 +70,6 @@ class AuthMethods {
   }
 
   //logging in
-
   Future<String> logInUser({
     required String email,
     required String password,
@@ -96,9 +95,8 @@ class AuthMethods {
     }
     return res;
   }
-  void signOut()  {
-   _auth.signOut();
+  //signout
+ Future<void> signOut() async {
+    await _auth.signOut();
   }
-
-  
 }

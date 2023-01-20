@@ -20,6 +20,13 @@ class _MobileScreenLayoutState extends State<MobileScreenLayout> {
   int _page = 0;
   PageController pageController = PageController();
 
+
+ @override
+  void initState() {
+    super.initState();
+    pageController = PageController();
+  }
+  
   @override
   void dispose() {
     super.dispose();

@@ -14,6 +14,7 @@ import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../resources/auth_methods.dart';
 import '../widgets/follow_button.dart';
 
 class ProfileScreen extends StatefulWidget {
@@ -151,7 +152,17 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 mobileBackgroundColor,
                                             textColor: primaryColor,
                                             borderColor: Colors.grey,
-                                            function: logoutUser)
+                                            function: () async {
+                                              await AuthMethods().signOut();
+                                              Navigator.of(context)
+                                                  .pushReplacement(
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      const LoginScreen(),
+                                                ),
+                                              );
+                                            },
+                                            )
                                         : isFollowing
                                             ? FollowButton(
                                                 text: 'Unfollow',
