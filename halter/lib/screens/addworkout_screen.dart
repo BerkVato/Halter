@@ -118,6 +118,7 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
             child: IconButton(
               icon: const Icon(
                 Icons.fitness_center_outlined,
+                size: 35.0,
               ),
               onPressed: () => _selectImage(context),
             ),
