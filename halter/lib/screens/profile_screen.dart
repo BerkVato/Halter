@@ -27,7 +27,7 @@ class ProfileScreen extends StatefulWidget {
 
 class _ProfileScreenState extends State<ProfileScreen> {
   var userData = {};
-  //int postLen = 0;
+  int postLen = 0;
   int followers = 0;
   int following = 0;
   bool isFollowing = false;
@@ -46,7 +46,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
   void logoutUser() {
     FirebaseAuth.instance.signOut();
     navigateToLogin();
-    //exit(0);
   }
 
   @override
@@ -69,7 +68,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
           .collection('workouts')
           .where('uid', isEqualTo: FirebaseAuth.instance.currentUser!.uid)
           .get();
-      //postLen = postSnap.docs.length;
+      postLen = postSnap.docs.length;
       userData = userSnap.data()!;
       followers = userSnap.data()!['followers'].length;
       following = userSnap.data()!['following'].length;
@@ -135,7 +134,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceEvenly,
                                   children: [
-                                    // buildStatColumn(postLen, "workouts"),
+                                    buildStatColumn(postLen, "workouts"),
                                     buildStatColumn(followers, "followers "),
                                     buildStatColumn(following, "following"),
                                   ],
