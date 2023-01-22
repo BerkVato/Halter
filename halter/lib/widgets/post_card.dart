@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:halter/models/user.dart';
-import 'package:halter/models/workout.dart';
 import 'package:halter/providers/user_provider.dart';
 import 'package:halter/resources/firestore_methods.dart';
 import 'package:halter/screens/comment_screen.dart';
@@ -65,7 +64,7 @@ class _PostCardState extends State<PostCard> {
     final User user = Provider.of<UserProvider>(context).getUser;
 
     return Container(
-      decoration: const BoxDecoration(  
+      decoration: const BoxDecoration(
         color: mobileBackgroundColor,
       ),
       padding: const EdgeInsets.symmetric(
@@ -178,11 +177,6 @@ class _PostCardState extends State<PostCard> {
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                     isAnimating: isLikeAnimating,
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                      size: 100,
-                    ),
                     duration: const Duration(
                       milliseconds: 400,
                     ),
@@ -191,6 +185,11 @@ class _PostCardState extends State<PostCard> {
                         isLikeAnimating = false;
                       });
                     },
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 100,
+                    ),
                   ),
                 ),
               ],
@@ -230,7 +229,6 @@ class _PostCardState extends State<PostCard> {
                   ),
                 ),
               ),
-              
             ],
           ),
           //DESCRIPTION AND NUMBER OF COMMENTS
@@ -273,6 +271,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 InkWell(
                   child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
                       'View all $commentLen workout comments',
                       style: const TextStyle(
@@ -280,18 +279,18 @@ class _PostCardState extends State<PostCard> {
                         color: secondaryColor,
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 4),
                   ),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
                       builder: (context) => CommentsScreen(
                         postId: widget.snap['postId'].toString(),
                       ),
-                      ),
+                    ),
                   ),
                 ),
                 //DATE VAR
                 Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
                     DateFormat.yMMMd()
                         .format(widget.snap['datePublished'].toDate()),
@@ -299,7 +298,6 @@ class _PostCardState extends State<PostCard> {
                       color: secondaryColor,
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 4),
                 ),
               ],
             ),
