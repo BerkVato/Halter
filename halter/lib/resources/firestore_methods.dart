@@ -124,14 +124,17 @@ class FireStoreMethods {
     return res;
   }
 
-  Future<String> updateProfile(String uid, String usernameController, String bioController ) async {
+  Future<String> updateProfile(String uid, String usernameController, String bioController, Uint8List file ) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
+    String photoUrl =
+          await StorageMethods().uploadImageToStorage('users', file, false);
     String res = 'Some error occured';
     try {
       if (usernameController.isNotEmpty && bioController.isNotEmpty ) {
         docUser.update({
           'username' : usernameController,
-          'bio' : bioController
+          'bio' : bioController,
+          'photoUrl' : photoUrl
         });
         return 'success';
       }

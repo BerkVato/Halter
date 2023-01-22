@@ -1,26 +1,42 @@
+import 'dart:typed_data';
 import 'dart:ui';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:halter/models/user.dart' as model;
 import 'package:halter/providers/user_provider.dart';
+import 'package:halter/resources/storage_methods.dart';
 import 'package:halter/screens/resetpassword_screen.dart';
 import 'package:halter/utils/colors.dart';
+import 'package:halter/utils/utils.dart';
 import 'package:halter/widgets/text_field_input.dart';
+import 'package:image_picker/image_picker.dart';
 import 'package:provider/provider.dart';
 
-class EditProfileScreen extends StatelessWidget {
+// ignore: must_be_immutable
+class EditProfileScreen extends StatefulWidget {
    EditProfileScreen({super.key});
-  final TextEditingController _bioController = TextEditingController();
- 
 
-  Future<String> updateProfile(String uid, String bioController ) async {
+  @override
+  State<EditProfileScreen> createState() => _EditProfileScreenState();
+}
+
+class _EditProfileScreenState extends State<EditProfileScreen> {
+  final TextEditingController _bioController = TextEditingController();
+
+  Uint8List? _image;
+
+ Future<String> updateProfile(String uid, String bioController, Uint8List? file ) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
+    String photoUrl =
+          await StorageMethods().uploadImageToStorage('users', file!, false);
     String res = 'Some error occured';
     try {
-      if ( bioController.isNotEmpty ) {
+      if (bioController.isNotEmpty ) {
         docUser.update({
-          'bio' : bioController
+          
+          'bio' : bioController,
+          'photoUrl' : photoUrl
         });
         return 'success';
       }
@@ -28,6 +44,14 @@ class EditProfileScreen extends StatelessWidget {
       res = err.toString();
     }
     return res;
+  }
+
+  void selectImage() async {
+    Uint8List image = await pickImage(ImageSource.gallery);
+
+    setState(() {
+      _image = image;
+    });
   }
 
   @override
@@ -84,26 +108,28 @@ class EditProfileScreen extends StatelessWidget {
                         ),
                       ),
                     ),
-                    Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 40,
-                        width: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          border: Border.all(
-                            width: 4,
-                            color: Theme.of(context).scaffoldBackgroundColor,
-                          ),
-                          color: Colors.grey,
+                    Stack(
+                children: [
+                  _image != null
+                      ? CircleAvatar(
+                          radius: 64,
+                          backgroundImage: MemoryImage(_image!),
+                        )
+                      : const CircleAvatar(
+                          radius: 64,
+                          backgroundImage: NetworkImage(
+                              'https://t4.ftcdn.net/jpg/03/46/93/61/360_F_346936114_RaxE6OQogebgAWTalE1myseY1Hbb5qPM.jpg'),
                         ),
-                        child: Icon(
-                          Icons.edit,
-                          color: Colors.white,
-                        ),
-                      ),
+                  Positioned(
+                    bottom: -10,
+                    left: 80,
+                    child: IconButton(
+                      onPressed: selectImage,
+                      icon: const Icon(Icons.add_a_photo),
                     ),
+                  ),
+                ],
+              ),
                   ],
                 ),
               ),
@@ -132,7 +158,7 @@ class EditProfileScreen extends StatelessWidget {
                 height: 35,
               ),
               MaterialButton(
-                onPressed: () { updateProfile(user.uid, _bioController.text);
+                onPressed: () { updateProfile(user.uid, _bioController.text, _image);
             
                 },
                 child: Text('Confirm Changes'),
