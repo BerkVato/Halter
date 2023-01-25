@@ -8,7 +8,7 @@ import 'package:uuid/uuid.dart';
 class FireStoreMethods {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
-//follow user
+//kullanıcı takip etme(followers ve following kısımlarına kullanıcıları ekliyoruz)
   Future<void> followUser(String uid, String followId) async {
     try {
       DocumentSnapshot snap =
@@ -36,13 +36,13 @@ class FireStoreMethods {
     }
   }
 
-  //post comment function
+  //yorum yapma
    Future<String> postComment(String postId, String text, String uid,
       String name, String profilePic) async {
     String res = "Some error occurred";
     try {
       if (text.isNotEmpty) {
-        // if the likes list contains the user uid, we need to remove it
+
         String commentId = const Uuid().v1();
         _firestore
             .collection('workouts')
@@ -66,10 +66,10 @@ class FireStoreMethods {
     }
     return res;
   }
-
+// workoutu postlama yeni bir workout oluşturuyoruz ve database'e ekliyoruz
       Future<String> uploadPost(String workoutDescription, Uint8List file, String uid,
       String username, String profImage) async {
-    // asking uid here because we dont want to make extra calls to firebase auth when we can just get from our state management
+    
     String res = "Some error occurred";
     try {
       String photoUrl =
@@ -92,16 +92,17 @@ class FireStoreMethods {
     }
     return res;
   }
+  //like atma ve geri çekme (like yapılmışsa kontrol edip geri çekiyor)
   Future<String> likePost(String postId, String uid, List likes) async {
     String res = "Some error occurred";
     try {
       if (likes.contains(uid)) {
-        // if the likes list contains the user uid, we need to remove it
+        
         _firestore.collection('workouts').doc(postId).update({
           'likes': FieldValue.arrayRemove([uid])
         });
       } else {
-        // else we need to add uid to the likes array
+
         _firestore.collection('workouts').doc(postId).update({
           'likes': FieldValue.arrayUnion([uid])
         });
@@ -112,7 +113,7 @@ class FireStoreMethods {
     }
     return res;
   }
-
+// workout silme
   Future<String> deletePost(String postId) async {
     String res = "Some error occurred";
     try {
@@ -123,7 +124,7 @@ class FireStoreMethods {
     }
     return res;
   }
-
+//profile picture ve bio değiştirme
   Future<String> updateProfile(String uid, String usernameController, String bioController, Uint8List file ) async {
     final docUser = FirebaseFirestore.instance.collection('users').doc(uid);
     String photoUrl =

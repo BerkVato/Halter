@@ -45,6 +45,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   void logoutUser() {
     FirebaseAuth.instance.signOut();
+    Navigator.of(context).popUntil((route) => route.isFirst);
     navigateToLogin();
   }
 
@@ -151,8 +152,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 mobileBackgroundColor,
                                             textColor: primaryColor,
                                             borderColor: Colors.grey,
-                                            function: () async {
-                                              await AuthMethods().signOut();
+                                            function: ()  {
+                                               AuthMethods().signOut();
                                               Navigator.of(context)
                                                   .pushReplacement(
                                                 MaterialPageRoute(
@@ -161,7 +162,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 ),
                                               );
                                             },
-                                            )
+                                          )
                                         : isFollowing
                                             ? FollowButton(
                                                 text: 'Unfollow',
@@ -255,11 +256,27 @@ class _ProfileScreenState extends State<ProfileScreen> {
                           DocumentSnapshot snap =
                               (snapshot.data! as dynamic).docs[index];
 
-                          return Image(
-                            image: NetworkImage(
-                              snap['postUrl'],
+                          return InkWell(
+                            child: Image(
+                              image: NetworkImage(
+                                snap['postUrl'],
+                              ),
+                              fit: BoxFit.cover,
                             ),
-                            fit: BoxFit.cover,
+                            onTap: () {
+                              showDialog(
+                                context: context,
+                                builder: (context) {
+                                  return Dialog(
+                                    child: Container(
+                                      padding: const EdgeInsets.all(16),
+                                       child: Text(snap['workoutDescription']),
+                                        ),
+                                  );
+                                },
+                              );
+                              // Show the post description
+                            },
                           );
                         });
                   },

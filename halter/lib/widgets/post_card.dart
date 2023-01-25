@@ -5,6 +5,7 @@ import 'package:halter/models/workout.dart';
 import 'package:halter/providers/user_provider.dart';
 import 'package:halter/resources/firestore_methods.dart';
 import 'package:halter/screens/comment_screen.dart';
+import 'package:halter/screens/profile_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
 import 'package:halter/widgets/like_animation.dart';
@@ -81,12 +82,22 @@ class _PostCardState extends State<PostCard> {
             ).copyWith(right: 0),
             child: Row(
               children: <Widget>[
-                CircleAvatar(
-                  radius: 16,
-                  backgroundImage: NetworkImage(
-                    widget.snap['profImage'].toString(),
-                  ),
-                ),
+                InkWell(
+  child: CircleAvatar(
+    radius: 16,
+    backgroundImage: NetworkImage(widget.snap['profImage'].toString()),
+  ),
+  onTap: () {
+    Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => ProfileScreen(
+          uid: widget.snap['uid'],
+        ),
+      ),
+    );
+  },
+),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -178,11 +189,6 @@ class _PostCardState extends State<PostCard> {
                   opacity: isLikeAnimating ? 1 : 0,
                   child: LikeAnimation(
                     isAnimating: isLikeAnimating,
-                    child: const Icon(
-                      Icons.favorite,
-                      color: Colors.white,
-                      size: 100,
-                    ),
                     duration: const Duration(
                       milliseconds: 400,
                     ),
@@ -191,6 +197,11 @@ class _PostCardState extends State<PostCard> {
                         isLikeAnimating = false;
                       });
                     },
+                    child: const Icon(
+                      Icons.favorite,
+                      color: Colors.white,
+                      size: 100,
+                    ),
                   ),
                 ),
               ],
@@ -273,6 +284,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 InkWell(
                   child: Container(
+                    padding: const EdgeInsets.symmetric(vertical: 4),
                     child: Text(
                       'View all $commentLen workout comments',
                       style: const TextStyle(
@@ -280,7 +292,6 @@ class _PostCardState extends State<PostCard> {
                         color: secondaryColor,
                       ),
                     ),
-                    padding: const EdgeInsets.symmetric(vertical: 4),
                   ),
                   onTap: () => Navigator.of(context).push(
                     MaterialPageRoute(
@@ -292,6 +303,7 @@ class _PostCardState extends State<PostCard> {
                 ),
                 //DATE VAR
                 Container(
+                  padding: const EdgeInsets.symmetric(vertical: 4),
                   child: Text(
                     DateFormat.yMMMd()
                         .format(widget.snap['datePublished'].toDate()),
@@ -299,7 +311,6 @@ class _PostCardState extends State<PostCard> {
                       color: secondaryColor,
                     ),
                   ),
-                  padding: const EdgeInsets.symmetric(vertical: 4),
                 ),
               ],
             ),

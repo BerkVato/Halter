@@ -13,6 +13,7 @@ class AuthMethods {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
 
+//user verilerini alma
   Future<model.User> getUserDetails() async {
     User currentUser = _auth.currentUser!;
 
@@ -21,8 +22,8 @@ class AuthMethods {
 
     return model.User.fromSnap(documentSnapshot);
   }
-  //sign up
-
+ 
+//kayıt olma (user yaratıp firebase methoduyla kayıt ediyoruz)
   Future<String> signUpUser({
     required String email,
     required String password,
@@ -69,7 +70,7 @@ class AuthMethods {
     return res;
   }
 
-  //logging in
+  //giriş yapma
   Future<String> logInUser({
     required String email,
     required String password,
@@ -97,6 +98,7 @@ class AuthMethods {
   }
   //signout
  Future<void> signOut() async {
+  
     await _auth.signOut();
   }
 }
