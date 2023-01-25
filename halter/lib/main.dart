@@ -4,10 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:halter/providers/user_provider.dart';
 import 'package:halter/responsive/mobile_screen_layout.dart';
 import 'package:halter/responsive/responsive_layout_screen.dart';
-import 'package:halter/screens/comment_screen.dart';
 import 'package:halter/screens/login_screen.dart';
-import 'package:halter/screens/profile_screen.dart';
-import 'package:halter/screens/signup_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:provider/provider.dart';
 
@@ -24,7 +21,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (_) => UserProvider(),),
+        ChangeNotifierProvider(
+          create: (_) => UserProvider(),
+        ),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

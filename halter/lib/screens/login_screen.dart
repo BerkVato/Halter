@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:halter/resources/auth_methods.dart';
 import 'package:halter/screens/resetpassword_screen.dart';
 import 'package:halter/screens/signup_screen.dart';
 import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
 import 'package:halter/widgets/text_field_input.dart';
-
 import '../responsive/mobile_screen_layout.dart';
 import '../responsive/responsive_layout_screen.dart';
 
@@ -38,6 +34,7 @@ class _LoginScreenState extends State<LoginScreen> {
     String res = await AuthMethods().logInUser(
         email: _emailController.text, password: _passwordController.text);
     if (res == "success") {
+      // ignore: use_build_context_synchronously
       Navigator.of(context).push(MaterialPageRoute(
           builder: (context) => const ResponsiveLayout(
                 mobileScreenLayout: MobileScreenLayout(),
@@ -110,13 +107,6 @@ class _LoginScreenState extends State<LoginScreen> {
               InkWell(
                 onTap: logInUser,
                 child: Container(
-                  child: _isLoading
-                      ? const Center(
-                          child: CircularProgressIndicator(
-                            color: primaryColor,
-                          ),
-                        )
-                      : const Text('Log in'),
                   width: double.infinity,
                   alignment: Alignment.center,
                   padding: const EdgeInsets.symmetric(vertical: 12),
@@ -125,6 +115,13 @@ class _LoginScreenState extends State<LoginScreen> {
                         borderRadius: BorderRadius.all(Radius.circular(4))),
                     color: blueColor,
                   ),
+                  child: _isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: primaryColor,
+                          ),
+                        )
+                      : const Text('Log in'),
                 ),
               ),
               const SizedBox(
@@ -135,20 +132,20 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Container(
-                    child: const Text("Don't have an account?"),
                     padding: const EdgeInsets.symmetric(
                       vertical: 8,
                     ),
+                    child: const Text("Don't have an account?"),
                   ),
                   GestureDetector(
                     onTap: navigateToSignUp,
                     child: Container(
+                      padding: const EdgeInsets.symmetric(
+                        vertical: 8,
+                      ),
                       child: const Text(
                         "Sign Up",
                         style: TextStyle(fontWeight: FontWeight.bold),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        vertical: 8,
                       ),
                     ),
                   ),

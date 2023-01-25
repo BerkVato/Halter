@@ -1,4 +1,3 @@
-import 'package:path/path.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:halter/utils/colors.dart';
@@ -54,8 +53,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         // ignore: prefer_const_literals_to_create_immutables
         children: [
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 64.0),
+          const Padding(
+            padding: EdgeInsets.symmetric(horizontal: 64.0),
             child: Text(
               "Enter your Email and we will send you a password reset link",
               textAlign: TextAlign.center,
@@ -78,8 +77,8 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
             onPressed: () {
               passwordReset();
             },
-            child: Text('Reset Password'),
             color: blueColor,
+            child: const Text('Reset Password'),
           )
         ],
       ),

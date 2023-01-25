@@ -1,5 +1,4 @@
 import 'dart:typed_data';
-
 import 'package:flutter/material.dart';
 import 'package:halter/providers/user_provider.dart';
 import 'package:halter/resources/firestore_methods.dart';
@@ -18,7 +17,8 @@ class AddWorkoutScreen extends StatefulWidget {
 class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
   Uint8List? _file;
   bool isLoading = false;
-  final TextEditingController _workoutDescriptionController = TextEditingController();
+  final TextEditingController _workoutDescriptionController =
+      TextEditingController();
 
   _selectImage(BuildContext parentContext) async {
     return showDialog(
@@ -78,12 +78,14 @@ class _AddWorkoutScreenState extends State<AddWorkoutScreen> {
         setState(() {
           isLoading = false;
         });
+        // ignore: use_build_context_synchronously
         showSnackBar(
           'Posted!',
           context,
         );
         clearImage();
       } else {
+        // ignore: use_build_context_synchronously
         showSnackBar(res, context);
       }
     } catch (err) {

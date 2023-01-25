@@ -1,19 +1,11 @@
-import 'dart:io';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:halter/models/user.dart';
-import 'package:halter/providers/user_provider.dart';
-import 'package:halter/models/user.dart' as model;
 import 'package:halter/resources/firestore_methods.dart';
 import 'package:halter/screens/editprofile_screen.dart';
 import 'package:halter/screens/login_screen.dart';
-
 import 'package:halter/utils/colors.dart';
 import 'package:halter/utils/utils.dart';
-import 'package:provider/provider.dart';
-
 import '../resources/auth_methods.dart';
 import '../widgets/follow_button.dart';
 
@@ -152,8 +144,9 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                                 mobileBackgroundColor,
                                             textColor: primaryColor,
                                             borderColor: Colors.grey,
-                                            function: ()  {
-                                               AuthMethods().signOut();
+                                            function: () async {
+                                              await AuthMethods().signOut();
+                                              // ignore: use_build_context_synchronously
                                               Navigator.of(context)
                                                   .pushReplacement(
                                                 MaterialPageRoute(
@@ -270,8 +263,8 @@ class _ProfileScreenState extends State<ProfileScreen> {
                                   return Dialog(
                                     child: Container(
                                       padding: const EdgeInsets.all(16),
-                                       child: Text(snap['workoutDescription']),
-                                        ),
+                                      child: Text(snap['workoutDescription']),
+                                    ),
                                   );
                                 },
                               );
