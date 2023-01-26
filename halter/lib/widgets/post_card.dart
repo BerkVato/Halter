@@ -82,21 +82,22 @@ class _PostCardState extends State<PostCard> {
             child: Row(
               children: <Widget>[
                 InkWell(
-  child: CircleAvatar(
-    radius: 16,
-    backgroundImage: NetworkImage(widget.snap['profImage'].toString()),
-  ),
-  onTap: () {
-    Navigator.push(
-      context,
-      MaterialPageRoute(
-        builder: (context) => ProfileScreen(
-          uid: widget.snap['uid'],
-        ),
-      ),
-    );
-  },
-),
+                  child: CircleAvatar(
+                    radius: 16,
+                    backgroundImage:
+                        NetworkImage(widget.snap['profImage'].toString()),
+                  ),
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => ProfileScreen(
+                          uid: widget.snap['uid'],
+                        ),
+                      ),
+                    );
+                  },
+                ),
                 Expanded(
                   child: Padding(
                     padding: const EdgeInsets.only(
@@ -106,11 +107,23 @@ class _PostCardState extends State<PostCard> {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        Text(
-                          widget.snap['username'].toString(),
-                          style: const TextStyle(
-                            fontWeight: FontWeight.bold,
+                        GestureDetector(
+                          child: Text(
+                            widget.snap['username'].toString(),
+                            style: const TextStyle(
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => ProfileScreen(
+                                  uid: widget.snap['uid'],
+                                ),
+                              ),
+                            );
+                          },
                         ),
                       ],
                     ),
